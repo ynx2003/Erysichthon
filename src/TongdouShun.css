@@ -1,0 +1,379 @@
+:root {
+  --bg: #000000;
+  --card: #121212;
+  --red: #ff3b30;
+  --green: #34c759;
+  --gold: #d4af37;
+  --cyan: #00fff2;
+  --text: #ffffff;
+  --dim: #666666;
+  --up-red: var(--red);
+  --down-green: var(--green);
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, sans-serif;
+  margin: 0;
+  user-select: none;
+}
+
+/* 幽灵排名 HUD */
+.ghost-hud {
+  position: fixed;
+  top: 5px;
+  left: 0;           /* 确保从屏幕最左侧开始 */
+  right: 0;          /* 确保延伸到屏幕最右侧 */
+  width: 100%;       /* 强制占据 100% 宽度 */
+  height: 60px;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.95), transparent);
+  z-index: 10000;
+  display: flex;     /* 开启弹性布局 */
+  justify-content: center; /* 水平居中 */
+  align-items: center;     /* 垂直居中 */
+  pointer-events: none;
+}
+
+.hud-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;     /* 确保标签和数字在自身内部也居中 */
+  text-align: center;
+  animation: pulse 2s infinite ease-in-out; /* 模拟像心跳一样规律闪烁 [cite: 64] */
+}
+
+.hud-tag { font-size: 20px; color: var(--cyan); opacity: 0.6; letter-spacing: 2px; display: block; }
+.hud-num { font-size: 22px; font-weight: 900; color: var(--cyan); text-shadow: 0 0 10px rgba(0,255,242,0.4); font-family: monospace; }
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.6; transform: scale(0.98); }
+  50% { opacity: 1; transform: scale(1); }
+}
+
+/* 底部导航 */
+.nav-bottom {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 65px;
+  background: rgba(10, 10, 10, 0.98);
+  border-top: 1px solid #222;
+  display: flex !important;    /* 强制横向排列 */
+  flex-direction: row !important; 
+  z-index: 10000;              /* 确保在最上层 */
+  padding: 0;
+  margin: 0;
+}
+
+.nav-btn {
+  flex: 1;                  /* 强制 4 个按钮等宽均分空间 */
+  display: flex;
+  flex-direction: column;    /* 保证图标在上，文字在下 */
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  color: var(--dim);
+  position: relative;        /* 为伪元素定位提供基准 */
+  transition: all 0.2s ease;
+}
+
+/* --- 2. “连接根茎”按钮的独有视觉修饰 --- */
+.nav-btn.conn-toggle::before {
+  content: "";
+  position: absolute;
+  /* 这里的 top/bottom/left/right 决定了底色块的内缩程度 */
+  top: 4px;
+  bottom: 4px;
+  left: 6px;
+  right: 6px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  z-index: 0; /* 放在背景层 */
+}
+
+/* 确保图标和文字在底色块上方显示 */
+.nav-btn.conn-toggle .nav-icon,
+.nav-btn.conn-toggle span {
+  position: relative;
+  z-index: 1;
+}
+
+/* --- 3. 连接后的状态切换 --- */
+.nav-btn.conn-toggle.on {
+  color: var(--green);
+}
+
+.nav-btn.conn-toggle.on::before {
+  background: rgba(52, 199, 89, 0.12);
+  border-color: var(--green);
+  box-shadow: 0 0 10px rgba(52, 199, 89, 0.1);
+}
+
+/* 激活导航项的颜色（如“行情”） */
+.nav-btn.active {
+  color: var(--gold);
+}
+
+/* 指数看板 */
+.indices { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; padding: 10px; }
+.idx-card { background: var(--card); padding: 12px 5px; border-radius: 4px; text-align: center; }
+.idx-card p { font-size: 10px; color: var(--dim); margin: 0; }
+.idx-card h2 { font-size: 17px; margin: 5px 0; font-family: monospace; }
+
+/* 市场概况 */
+.section-box {
+  background: var(--card-bg);
+  margin: 10px;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  margin-bottom: 12px;
+  font-weight: bold;
+}
+
+.more { color: var(--text-dim); font-weight: normal; font-size: 12px; }
+
+.distribution-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  .down-color { 
+  color: var(--green); 
+}
+.up-color { 
+  color: var(--red); 
+}
+}
+
+.bar-track {
+  flex: 1;
+  height: 8px;
+  background: #333;
+  display: flex;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.up-fill { background: var(--red); }
+.down-fill { background: var(--green); }
+
+/* 大盘异动列表 */
+.anomaly-list {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.anomaly-list li {
+  font-size: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid #222;
+  color: #ccc;
+}
+
+.tag-time { color: var(--accent-gold); margin-right: 8px; font-family: monospace; }
+
+/* 行情和自选中的表格 */
+/* 表格样式 */
+.stock-table {
+  width: 100%;             /* 核心：强制表格撑满整个容器宽度 */
+  border-collapse: collapse;
+  margin: 0 auto;          /* 保险起见，设置自动外边距 */
+}
+.stock-table th, 
+.stock-table td {
+  text-align: center;
+  padding: 12px 10px;
+  vertical-align: middle;
+}
+
+/* --- 专门针对表头 (th) 的独立样式 --- */
+.stock-table th {
+  font-size: 12px;           /* 单独控制表头字号 */
+  font-weight: 500;          /* 加粗或减轻权重 */
+  color: var(--dim);         /* 设置特定的暗色或金色 */
+  border-bottom: 1px solid #222;
+  text-transform: uppercase; /* 强制大写（如果需要） */
+}
+
+/* --- 专门针对表格内容 (td) 的样式 --- */
+.stock-table td {
+  font-size: 14px;           /* 单独控制正文字号 */
+  color: var(--text);
+}
+
+.r { text-align: right; }
+.c { text-align: center; }
+.digit { font-family: monospace; font-size: 15px; }
+
+.name-box {
+  display: flex;           /* 启用弹性布局 */
+  flex-direction: column;  /* 核心：强制内容垂直堆叠（换行） */
+  align-items: center;     /* 保持水平居中（如果你需要对齐的话） */
+  justify-content: center; /* 垂直居中 */
+  gap: 2px;               /* 可以在名称和代码之间加一点微小的间距 */
+}
+
+/* 还可以单独调整下方代码的样式，让层级更清晰 */
+.name-box small {
+  display: block;          /* 确保它占据整行 */
+  font-size: 12px;
+  color: var(--dim);       /* 使用较浅的颜色区分 */
+}
+
+/* 颜色 */
+.red { color: var(--red) !important;}
+.green { color: var(--green) !important;}
+
+
+/* 自选按钮 */
+.watch-add { background: none; border: 1px solid #333; color: #555; width: 22px; height: 22px; border-radius: 4px; font-size: 16px; cursor: pointer; }
+.watch-add.active { border-color: var(--gold); color: var(--gold); }
+
+/* 自选概览卡片 */
+.watchlist-summary {
+  display: flex;
+  background: linear-gradient(145deg, #1a1a1a, #0a0a0a);
+  margin: 10px;
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid #222;
+  justify-content: space-between;
+}
+
+.sum-item label {
+  display: block;
+  font-size: 10px;
+  color: var(--dim);
+  margin-bottom: 5px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.sum-item p {
+  margin: 0;
+  font-size: 18px;
+  font-family: monospace;
+  font-weight: bold;
+}
+
+/* 空状态艺术化处理 */
+.empty-watchlist {
+  height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0 40px;
+}
+
+.empty-art {
+  position: relative;
+  margin-bottom: 30px;
+}
+
+.void-circle {
+  width: 80px;
+  height: 80px;
+  border: 2px dashed #333;
+  border-radius: 50%;
+  animation: rotate 10s linear infinite;
+}
+
+.root-line {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 2px;
+  height: 40px;
+  background: var(--gold);
+  transform: translate(-50%, -50%);
+  opacity: 0.3;
+}
+
+.empty-watchlist h3 {
+  color: var(--dim);
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+.empty-watchlist p {
+  color: #444;
+  font-size: 13px;
+  margin-bottom: 25px;
+}
+
+.go-market-btn {
+  background: none;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  padding: 10px 25px;
+  border-radius: 20px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.go-market-btn:hover {
+  background: var(--gold);
+  color: #000;
+}
+
+/* 列表头部微调 */
+.list-header {
+  padding: 15px 10px 5px;
+  font-size: 12px;
+  color: var(--dim);
+  border-bottom: 1px solid #111;
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 购买按钮 */
+.buy-action { background: var(--red); color: #fff; border: none; padding: 5px 10px; border-radius: 4px; font-size: 12px; cursor: pointer; }
+.buy-action.done { background: #333; color: #666; cursor: default; }
+
+/* 身体完整度 */
+.puzzle-board { 
+  width: 180px; height: 240px; background: #2a1f18; margin: 40px auto; 
+  border-radius: 40% 60% 50% 50%; display: grid; grid-template-columns: repeat(4, 1fr); overflow: hidden; 
+}
+.tile { border: 0.5px solid rgba(0,0,0,0.1); }
+.tile.gap { background: #000; box-shadow: inset 0 0 10px #000; opacity: 0.3; }
+
+.user-stats { padding: 20px; }
+.user-stats p { display: flex; justify-content: space-between; margin-bottom: 15px; border-bottom: 1px solid #111; padding-bottom: 10px; }
+
+/* 加载界面 */
+.loading-screen { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+.potato-body { width: 60px; height: 80px; background: #3d2b1f; border-radius: 45%; margin-bottom: 25px; }
+.bar-bg { width: 200px; height: 4px; background: #222; }
+.bar-inner { height: 100%; background: var(--gold); }
+
+/* 页面布局 */
+.main-viewport { padding: 60px 0 80px 0; max-width: 500px; margin: 0 auto; }
+.box-section { background: var(--card); margin: 10px; padding: 15px; border-radius: 8px; }
+.box-head { font-size: 14px; font-weight: bold; margin-bottom: 12px; }
