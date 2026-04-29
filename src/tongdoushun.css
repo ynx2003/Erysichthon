@@ -163,7 +163,7 @@ body {
 .up-fill { background: var(--red); }
 .down-fill { background: var(--green); }
 
-/* anomaly */
+/* Market Anomaly */
 .anomaly-list {
   padding: 0;
   margin: 0;
@@ -171,13 +171,28 @@ body {
 }
 
 .anomaly-list li {
-  font-size: 12px;
-  padding: 8px 0;
-  border-bottom: 1px solid #222;
-  color: #ccc;
+  display: flex;             
+  align-items: flex-start;   
+  gap: 12px;                 
+  font-size: 13px;           
+  line-height: 1.5;          
+  padding: 12px 0;           
+  border-bottom: 1px solid #1a1a1a;
+  color: #bbb;
 }
 
-.tag-time { color: var(--accent-gold); margin-right: 8px; font-family: monospace; }
+.tag-time { 
+  color: var(--gold); 
+  font-family: 'Courier New', monospace; 
+  font-weight: bold;
+  flex-shrink: 0;            
+  width: 45px;              
+}
+
+.anomaly-content {
+  flex: 1;                   
+  word-break: break-word;    
+}
 
 /* Chart */
 .stock-table {

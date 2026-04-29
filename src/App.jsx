@@ -167,11 +167,26 @@ function App() {
             <div className="section-box">
               <div className="section-header"><span>Market Anomaly News</span> <span className="more">More</span></div>
               <ul className="anomaly-list">
-                <li><span className="tag-time">13:32</span> Official government release: The standard ellipse is the optimal shape </li>
-                <li><span className="tag-time">12:10</span> Dou Star Same Style! Potato Chips Supreme Entertainment Approaches Limit-Up</li>
-                <li><span className="tag-time">10:45</span> Dream of original aesthetics shattered? The sharp plunge of Native Shape Research… </li>
-                <li><span className="tag-time">09:15</span> Angularized shapes may affect the consistency of the overall visual perception </li>
-                <li><span className="tag-time">08:00</span> High symmetry has become a social necessity, and the technology sector continues to strengthen </li>
+                <li>
+                  <span className="tag-time">13:32</span> 
+                  <div className="anomaly-content">Official government release: The standard ellipse is the optimal shape</div>
+                </li>
+                <li>
+                  <span className="tag-time">12:10</span>
+                  <div className="anomaly-content">Dou Star Same Style! Potato Chips Supreme Entertainment Approaches Limit-Up</div>
+                </li>
+                <li>
+                  <span className="tag-time">10:45</span>
+                  <div className="anomaly-content">Dream of original aesthetics shattered? The sharp plunge of Native Shape Research…</div>
+                </li>
+                <li>
+                  <span className="tag-time">09:15</span>
+                  <div className="anomaly-content">Angularized shapes may affect the consistency of the overall visual perception</div>
+                </li>
+                <li>
+                  <span className="tag-time">08:00</span>
+                  <div className="anomaly-content">High symmetry has become a social necessity, and the technology sector continues to strengthen</div>
+                </li>
               </ul>
             </div>
 
