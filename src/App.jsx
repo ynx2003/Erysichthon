@@ -35,7 +35,7 @@ function App() {
   const [rank, setRank] = useState(130025); 
   const [activeTab, setActiveTab] = useState('QUOTES');
   const [molds, setMolds] = useState(INITIAL_MOLD_DATA);
-  const [WATCHLIST, setWATCHLIST] = useState([]); // WATCHLIST ID 数组
+  const [watchlist, setwatchlist] = useState([]); // watchlist ID 数组
   const [ownedMolds, setOwnedMolds] = useState([]); // 已购 ID 数组
   const [balance, setBalance] = useState(10000); //玩家初始资金
 
@@ -91,10 +91,10 @@ function App() {
   setRank(prev => Math.max(1, prev - (Math.floor(Math.random() * 50) + 20)));
 };
 
-  // 5. WATCHLIST切换
+  // 5. watchlist切换
   const toggleWatch = (e, id) => {
     e.stopPropagation();
-    setWATCHLIST(prev => prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id]);
+    setwatchlist(prev => prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id]);
   };
 
   if (loading) {
@@ -207,10 +207,10 @@ function App() {
                     <tr key={m.id}>
                       <td className="c">
                         <button 
-                          className={`watch-add ${WATCHLIST.includes(m.id) ? 'active' : ''}`}
+                          className={`watch-add ${watchlist.includes(m.id) ? 'active' : ''}`}
                           onClick={(e) => toggleWatch(e, m.id)}
                         >
-                          {WATCHLIST.includes(m.id) ? '−' : '+'}
+                          {watchlist.includes(m.id) ? '−' : '+'}
                         </button>
                       </td>
                       <td><div className="name-box"><span>{m.name}</span><small>{m.code}</small></div></td>
@@ -227,36 +227,36 @@ function App() {
 
         {activeTab === 'WATCHLIST' && (
   <div className="view-market fade-in">
-    {/* 1. WATCHLIST概览卡片 - 增加功能独特性 */}
-    {WATCHLIST.length > 0 && (
-      <div className="WATCHLIST-summary">
+    {/* 1. watchlist概览卡片 - 增加功能独特性 */}
+    {watchlist.length > 0 && (
+      <div className="watchlist-summary">
         <div className="sum-item">
           <label>FOLLOWING</label>
-          <p>{WATCHLIST.length}</p>
+          <p>{watchlist.length}</p>
         </div>
         <div className="sum-item">
           <label>AVERAGE ADVANCE DEGREE</label>
-          <p>+{ (molds.filter(m => WATCHLIST.includes(m.id)).reduce((acc, m) => acc + m.weight, 0) / WATCHLIST.length).toFixed(1) }%</p>
+          <p>+{ (molds.filter(m => watchlist.includes(m.id)).reduce((acc, m) => acc + m.weight, 0) / watchlist.length).toFixed(1) }%</p>
         </div>
         <div className="sum-item">
           <label>MARKET SENTIMENT</label>
-          <p className={molds.filter(m => WATCHLIST.includes(m.id)).some(m => parseFloat(m.change) > 0) ? 'red' : 'green'}>
-            {molds.filter(m => WATCHLIST.includes(m.id)).filter(m => parseFloat(m.change) > 0).length} RISE / {molds.filter(m => WATCHLIST.includes(m.id)).filter(m => parseFloat(m.change) <= 0).length} FALL
+          <p className={molds.filter(m => watchlist.includes(m.id)).some(m => parseFloat(m.change) > 0) ? 'red' : 'green'}>
+            {molds.filter(m => watchlist.includes(m.id)).filter(m => parseFloat(m.change) > 0).length} RISE / {molds.filter(m => watchlist.includes(m.id)).filter(m => parseFloat(m.change) <= 0).length} FALL
           </p>
         </div>
       </div>
     )}
 
     {/* 2. 条件渲染内容 */}
-    {WATCHLIST.length === 0 ? (
-      <div className="empty-WATCHLIST">
+    {watchlist.length === 0 ? (
+      <div className="empty-watchlist">
         <div className="empty-art">
           <div className="void-circle"></div>
           <div className="root-line"></div>
         </div>
         <h3>You haven't anchored any assets in the market</h3>
         <button className="go-market-btn" onClick={() => setActiveTab('QUOTES')}>
-          Go to synchronize market QUOTES
+          Go to synchronize market quotes
         </button>
       </div>
     ) : (
@@ -272,7 +272,7 @@ function App() {
             </tr>
           </thead>
           <tbody>
-            {molds.filter(m => WATCHLIST.includes(m.id)).map(m => (
+            {molds.filter(m => watchlist.includes(m.id)).map(m => (
               <tr key={m.id}>
                 <td>
                   <div className="name-box">

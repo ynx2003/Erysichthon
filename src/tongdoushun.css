@@ -202,6 +202,7 @@ body {
 }
 .stock-table th, 
 .stock-table td {
+  font-size: 13px;
   text-align: center;
   padding: 12px 10px;
   vertical-align: middle;
@@ -228,7 +229,7 @@ body {
 .name-box {
   display: flex;           
   flex-direction: column;  
-  align-items: center;     
+  align-items: flex-start;     
   justify-content: center; 
   gap: 2px;              
 }
@@ -248,29 +249,42 @@ body {
 .watch-add { background: none; border: 1px solid #333; color: #555; width: 22px; height: 22px; border-radius: 4px; font-size: 16px; cursor: pointer; }
 .watch-add.active { border-color: var(--gold); color: var(--gold); }
 
-/* zixuan watchlist */
+/* watchlist */
 .watchlist-summary {
   display: flex;
   background: linear-gradient(145deg, #1a1a1a, #0a0a0a);
   margin: 10px;
-  padding: 20px;
+  padding: 15px 10px; 
   border-radius: 12px;
   border: 1px solid #222;
-  justify-content: space-between;
+  justify-content: space-around; 
+  align-items: flex-start;      
+  gap: 5px;
+}
+
+.sum-item {
+  flex: 1;           
+  text-align: center;
+  min-width: 0;       
 }
 
 .sum-item label {
   display: block;
-  font-size: 10px;
+  font-size: 9px;     
   color: var(--dim);
-  margin-bottom: 5px;
+  margin-bottom: 8px;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
+  line-height: 1.2;
+  height: 24px;       
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .sum-item p {
   margin: 0;
-  font-size: 18px;
+  font-size: 16px;    
   font-family: monospace;
   font-weight: bold;
 }
