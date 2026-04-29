@@ -278,23 +278,37 @@ function App() {
   </div>
 )}
 
-        {activeTab === '我的' && (
-          <div className="view-profile">
-            <div className="puzzle-board">
-               {[...Array(20)].map((_, i) => (
-                 <div key={i} className={`tile ${i < ownedMolds.length ? 'gap' : ''}`}></div>
-               ))}
-            </div>
-            <div className="user-stats">
-               <p><span>当前高级度排名</span><b className="red">{rank.toLocaleString()}</b></p>
-               <p><span>肉体完整度</span><b>{100 - ownedMolds.length * 5}%</b></p>
-               <p><span>模具占位</span><b>{ownedMolds.length} / 20</b></p>
-            </div>
-          </div>
-        )}
+       {activeTab === '我的' && (
+  (() => {
+    const n = ownedMolds.length;
+    // 使用你提供的指数衰减公式
+    const integrity = (100 * Math.pow(0.5, n)).toFixed(n > 5 ? 4 : 2);
+
+    return (
+      <div className="view-profile">
+        <div className="puzzle-board" style={{ display: 'flex', alignItems: 'flex-end', background: '#1a1410' }}>
+           <div 
+             className="potato-flesh-indicator" 
+             style={{ 
+               width: '100%', 
+               height: `${Math.max(0.1, 100 * Math.pow(0.5, n))}%`, 
+               background: '#5d4037',
+               transition: 'height 0.5s cubic-bezier(0.4, 0, 0.2, 1)'
+             }}
+           ></div>
+        </div>
+
+        <div className="user-stats">
+           <p><span>当前高级度排名</span><b className="red">{rank.toLocaleString()}</b></p>
+           <p><span>肉体完整度</span><b>{integrity}%</b></p>
+           <p><span>已嵌合模具</span><b>{n} 个</b></p>
+        </div>
+      </div>
+    );
+  })()
+)}
       </div>
     </div>
   );
 }
-
 export default App;
