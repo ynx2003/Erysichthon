@@ -114,10 +114,10 @@ body {
   color: var(--gold);
 }
 
-/* zhishu */
+/* index */
 .indices { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; padding: 10px; }
 .idx-card { background: var(--card); padding: 12px 5px; border-radius: 4px; text-align: center; }
-.idx-card p { font-size: 10px; color: var(--dim); margin: 0; }
+.idx-card p { font-size: 12px; color: var(--dim); margin: 0; }
 .idx-card h2 { font-size: 17px; margin: 5px 0; font-family: monospace; }
 
 /* Market Overview */
@@ -131,7 +131,7 @@ body {
 .section-header {
   display: flex;
   justify-content: space-between;
-  font-size: 10px;
+  font-size: 14px;
   margin-bottom: 12px;
   font-weight: bold;
 }
@@ -353,7 +353,7 @@ body {
 
 .list-header {
   padding: 15px 10px 5px;
-  font-size: 12px;
+  font-size: 15px;
   color: var(--dim);
   border-bottom: 1px solid #111;
 }
