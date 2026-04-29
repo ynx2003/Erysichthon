@@ -349,18 +349,11 @@ body {
 
 /* body */
 .puzzle-board { 
-  width: 180px; 
-  height: 240px; 
-  background: #120c08; 
-  margin: 40px auto; 
-  border-radius: 45% 55% 48% 52% / 40% 40% 60% 60%; 
-  position: relative;
-  overflow: hidden;
-  box-shadow: 
-    inset 0 0 30px #000,
-    0 0 20px rgba(212, 175, 55, 0.05);
-  border: 1px solid #2a1f18;
+  width: 180px; height: 240px; background: #2a1f18; margin: 40px auto; 
+  border-radius: 40% 60% 50% 50%; display: grid; grid-template-columns: repeat(4, 1fr); overflow: hidden; 
 }
+.tile { border: 0.5px solid rgba(0,0,0,0.1); }
+.tile.gap { background: #000; box-shadow: inset 0 0 10px #000; opacity: 0.3; }
 
 .potato-flesh-indicator {
   width: 100%;
