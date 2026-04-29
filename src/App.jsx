@@ -280,26 +280,35 @@ function App() {
 
        {activeTab === '我的' && (
   (() => {
-    const n = ownedMolds.length;
-    // 使用你提供的指数衰减公式
+    const n = ownedMolds.length; //
     const integrity = (100 * Math.pow(0.5, n)).toFixed(n > 5 ? 4 : 2);
 
+    // 动态切口逻辑：
+    // 1. n=0 时，顶部是平的 (0% 0%, 100% 0%)
+    // 2. n 为奇数时，左高右低 (0% 0%, 100% 15%)
+    // 3. n 为偶数时，左低右高 (0% 15%, 100% 0%)
+    const topL = n === 0 ? 0 : (n % 2 === 0 ? 15 : 0);
+    const topR = n === 0 ? 0 : (n % 2 !== 0 ? 15 : 0);
+    const dynamicClipPath = `polygon(0% ${topL}%, 100% ${topR}%, 100% 100%, 0% 100%)`;
+
     return (
-      <div className="view-profile">
-        <div className="puzzle-board" style={{ display: 'flex', alignItems: 'flex-end', background: '#1a1410' }}>
+      <div className="view-profile fade-in">
+        <div className="puzzle-board">
            <div 
              className="potato-flesh-indicator" 
              style={{ 
                width: '100%', 
                height: `${Math.max(0.1, 100 * Math.pow(0.5, n))}%`, 
-               background: '#5d4037',
-               transition: 'height 0.5s cubic-bezier(0.4, 0, 0.2, 1)'
+               background: 'linear-gradient(180deg, #8d6e63 0%, #5d4037 100%)',
+               transition: 'all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)',
+               // 核心修改：将计算好的多边形路径注入
+               clipPath: dynamicClipPath 
              }}
            ></div>
         </div>
 
         <div className="user-stats">
-           <p><span>当前高级度排名</span><b className="red">{rank.toLocaleString()}</b></p>
+           <p><span>当前高级度排名</span><b className="red">{rank.toLocaleString()}</b></p> {/* */}
            <p><span>肉体完整度</span><b>{integrity}%</b></p>
            <p><span>已嵌合模具</span><b>{n} 个</b></p>
         </div>
