@@ -3,26 +3,26 @@ import './tongdoushun.css';
 
 // 初始模具资产数据
 const INITIAL_MOLD_DATA = [
-  { id: 'M01', name: 'Standard Elliptical Group',  weight: 1.2, rarity: 'Regular', change: -1.8, price: 120 },
+  { id: 'M01', name: 'Standard Elliptical Group',  weight: 8.2, rarity: 'Regular', change: 5.8, price:680 },
   { id: 'M02', name: 'Stable Structural Building Materials',  weight: 1.5, rarity: 'Regular', change: -3, price: 150 },
   { id: 'M03', name: 'Compliance Form Technology',  weight: 2.1, rarity: 'Rare', change: 3, price: 280 },
   { id: 'M04', name: 'Symmetry Technology Holdings',  weight: 2.8, rarity: 'Rare', change: 2, price: 350 },
   { id: 'M05', name: 'Surface Upgrade 1.5',  weight: 8.5, rarity: 'Epic', change: -4, price: 1200 },
   { id: 'M06', name: 'Curvature EQ 4.0.2',  weight: 12.0, rarity: 'Legend', change: 1.5, price: 3500 },
-  { id: 'M07', name: 'Potato Chips Supreme Entertainment',  weight: 6.4, rarity: 'Rare', change: 4.5, price: 850 },
+  { id: 'M07', name: 'Potato Chips Supreme Entertainment',  weight: 13.4, rarity: 'Rare', change: 9.8, price: 850 },
   { id: 'M08', name: 'Never Fall Group',  weight: 5.2, rarity: 'Regular', change: -3.2, price: 600 },
-  { id: 'M09', name: 'Gregarious Adaptation Data',  weight: 25.0, rarity: 'Legend', change: -3.3, price: 8800 },
+  { id: 'M09', name: 'Gregarious Adaptation Data',  weight: 4.0, rarity: 'Rare', change: -3.3, price: 380 },
   { id: 'M10', name: 'Safely Choose A Lab',  weight: 18.2, rarity: 'Legend', change: 3.7, price: 5400 },
-  { id: 'M11', name: 'Natural Form Beauty',  weight: 0.5, rarity: 'Entry', change: 4, price: 50 },
-  { id: 'M12', name: 'Native Shape Research',  weight: 3.2, rarity: 'Regular', change: -5.4, price: 400 },
+  { id: 'M11', name: 'Natural Form Beauty',  weight: 6.5, rarity: 'Entry', change: 4, price: 850 },
+  { id: 'M12', name: 'Native Shape Research',  weight: 3.2, rarity: 'Regular', change: -7.4, price: 400 },
   { id: 'M13', name: 'Compliance Protocol 6202',  weight: 4.1, rarity: 'Rare', change: -3.8, price: 720 },
-  { id: 'M14', name: 'Market Adaptation Shares',  weight: 9.7, rarity: 'Epic', change: 2.1, price: 1800 },
-  { id: 'M15', name: 'Deviation Management Shares',  weight: 7.3, rarity: 'Rare', change: 0.5, price: 1100 },
-  { id: 'M16', name: 'Precision Edge Trimming',  weight: 1.1, rarity: 'Entry', change: 4.45, price: 90 },
-  { id: 'M17', name: 'Highly Symmetric Technology',  weight: 3.5, rarity: 'Rare', change: -0.6, price: 460 },
+  { id: 'M14', name: 'Market Adaptation Shares',  weight: 1.7, rarity: 'Entry', change: 2.1, price: 180 },
+  { id: 'M15', name: 'Deviation Management Shares',  weight: 2.3, rarity: 'Rare', change: 0.5, price: 370 },
+  { id: 'M16', name: 'Precision Edge Trimming',  weight: 1.1, rarity: 'Entry', change: -4.45, price: 90 },
+  { id: 'M17', name: 'Highly Symmetric Technology',  weight: 7.5, rarity: 'Epic', change: 6.6, price: 1200 },
   { id: 'M18', name: 'Basic Morphology Research',  weight: 5.5, rarity: 'Rare', change: 0.12, price: 780 },
   { id: 'M19', name: 'Blank Template Entertainment',  weight: 15.0, rarity: 'Epic', change: 1, price: 4200 },
-  { id: 'M20', name: 'French Fries King Entertainment',  weight: 30.0, rarity: 'Legend', change: -3.1, price: 12000 },
+  { id: 'M20', name: 'French Fries King Entertainment',  weight: 30.0, rarity: 'Legend', change: -3.1, price: 5800 },
 ].map(m => ({
   ...m,
   code: Math.floor(100000 + Math.random() * 900000).toString(),
@@ -33,9 +33,9 @@ function App() {
   const [progress, setProgress] = useState(0);
   const [isConnected, setIsConnected] = useState(false);
   const [rank, setRank] = useState(130025); 
-  const [activeTab, setActiveTab] = useState('Quotes');
+  const [activeTab, setActiveTab] = useState('QUOTES');
   const [molds, setMolds] = useState(INITIAL_MOLD_DATA);
-  const [watchlist, setWatchlist] = useState([]); // Watchlist ID 数组
+  const [WATCHLIST, setWATCHLIST] = useState([]); // WATCHLIST ID 数组
   const [ownedMolds, setOwnedMolds] = useState([]); // 已购 ID 数组
   const [balance, setBalance] = useState(10000); //玩家初始资金
 
@@ -91,10 +91,10 @@ function App() {
   setRank(prev => Math.max(1, prev - (Math.floor(Math.random() * 50) + 20)));
 };
 
-  // 5. Watchlist切换
+  // 5. WATCHLIST切换
   const toggleWatch = (e, id) => {
     e.stopPropagation();
-    setWatchlist(prev => prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id]);
+    setWATCHLIST(prev => prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id]);
   };
 
   if (loading) {
@@ -121,11 +121,11 @@ function App() {
 
       {/* 底部导航栏 */}
       <nav className="nav-bottom">
-        {['Quotes', 'Watchlist', 'Home'].map(tab => (
+        {['QUOTES', 'WATCHLIST', 'HOME'].map(tab => (
           <div 
             key={tab} 
             className={`nav-btn ${activeTab === tab ? 'active' : ''}`}
-            onClick={() => isConnected || tab === 'Quotes' ? setActiveTab(tab) : alert('Please Connect the Rootstock!')}
+            onClick={() => isConnected || tab === 'QUOTES' ? setActiveTab(tab) : alert('Please Connect the Rootstock!')}
           >
             <div className={`nav-icon icon-${tab}`}></div>
             <span>{tab}</span>
@@ -141,16 +141,16 @@ function App() {
       </nav>
 
       <div className="main-viewport">
-        {activeTab === 'Quotes' && (
+        {activeTab === 'QUOTES' && (
           <div className="view-market">
             {/* 指数看板 */}
             <div className="indices">
               <div className="idx-card"><p>Advanced Degree Index</p><h2 className="red">4086.34</h2><small className="red">+0.16%</small></div>
               <div className="idx-card"><p>Original Potato Index</p><h2 className="green">2401.32</h2><small className="green">-5.40%</small></div>
-              <div className="idx-card"><p>Metal Saturation Index</p><h2 className="red">1361.47</h2><small className="res">+4.64%</small></div>
+              <div className="idx-card"><p>Metal Saturation Index</p><h2 className="red">1361.47</h2><small className="red">+4.64%</small></div>
             </div>
 
-            {/* 市场概况 [cite: 30] */}
+            {/* 市场概况 */}
             <div className="section-box">
               <div className="section-header"><span>Market Overview</span> <span className="more">More</span></div>
               <div className="distribution-bar">
@@ -163,15 +163,15 @@ function App() {
               </div>
             </div>
 
-            {/* 大盘异动 - 小豆书预留位 [cite: 72, 110] */}
+            {/* 大盘异动 - 小豆书预留位 */}
             <div className="section-box">
               <div className="section-header"><span>Market Anomaly News</span> <span className="more">More</span></div>
               <ul className="anomaly-list">
-                <li><span className="tag-time">13:32</span> <b>博主 momo:</b> 今天又挖掉了5%的肉体，相关模具走强 </li>
-                <li><span className="tag-time">12:10</span> <b>公告:</b> 原始土豆样本检测到未知有机物生长 </li>
-                <li><span className="tag-time">10:45</span> <b>传闻:</b> “终极镂空核心”拍卖会准入名单更新 </li>
-                <li><span className="tag-time">09:15</span> <b>1006 邻居:</b> 因排名暴跌锯断了家里的铁栅栏 </li>
-                <li><span className="tag-time">08:00</span> <b>系统:</b> 请所有公民及时连接根茎同步高级度数据 </li>
+                <li><span className="tag-time">13:32</span> Official government release: The standard ellipse is the optimal shape </li>
+                <li><span className="tag-time">12:10</span> Dou Star Same Style! Potato Chips Supreme Entertainment Approaches Limit-Up</li>
+                <li><span className="tag-time">10:45</span> Dream of original aesthetics shattered? The sharp plunge of Native Shape Research… </li>
+                <li><span className="tag-time">09:15</span> Angularized shapes may affect the consistency of the overall visual perception </li>
+                <li><span className="tag-time">08:00</span> High symmetry has become a social necessity, and the technology sector continues to strengthen </li>
               </ul>
             </div>
 
@@ -192,10 +192,10 @@ function App() {
                     <tr key={m.id}>
                       <td className="c">
                         <button 
-                          className={`watch-add ${watchlist.includes(m.id) ? 'active' : ''}`}
+                          className={`watch-add ${WATCHLIST.includes(m.id) ? 'active' : ''}`}
                           onClick={(e) => toggleWatch(e, m.id)}
                         >
-                          {watchlist.includes(m.id) ? '−' : '+'}
+                          {WATCHLIST.includes(m.id) ? '−' : '+'}
                         </button>
                       </td>
                       <td><div className="name-box"><span>{m.name}</span><small>{m.code}</small></div></td>
@@ -210,38 +210,38 @@ function App() {
           </div>
         )}
 
-        {activeTab === 'Watchlist' && (
+        {activeTab === 'WATCHLIST' && (
   <div className="view-market fade-in">
-    {/* 1. Watchlist概览卡片 - 增加功能独特性 */}
-    {watchlist.length > 0 && (
-      <div className="watchlist-summary">
+    {/* 1. WATCHLIST概览卡片 - 增加功能独特性 */}
+    {WATCHLIST.length > 0 && (
+      <div className="WATCHLIST-summary">
         <div className="sum-item">
           <label>FOLLOWING</label>
-          <p>{watchlist.length} <small>组</small></p>
+          <p>{WATCHLIST.length}</p>
         </div>
         <div className="sum-item">
           <label>AVERAGE ADVANCE DEGREE</label>
-          <p>+{ (molds.filter(m => watchlist.includes(m.id)).reduce((acc, m) => acc + m.weight, 0) / watchlist.length).toFixed(1) }%</p>
+          <p>+{ (molds.filter(m => WATCHLIST.includes(m.id)).reduce((acc, m) => acc + m.weight, 0) / WATCHLIST.length).toFixed(1) }%</p>
         </div>
         <div className="sum-item">
           <label>MARKET SENTIMENT</label>
-          <p className={molds.filter(m => watchlist.includes(m.id)).some(m => parseFloat(m.change) > 0) ? 'red' : 'green'}>
-            {molds.filter(m => watchlist.includes(m.id)).filter(m => parseFloat(m.change) > 0).length} RISE / {molds.filter(m => watchlist.includes(m.id)).filter(m => parseFloat(m.change) <= 0).length} FALL
+          <p className={molds.filter(m => WATCHLIST.includes(m.id)).some(m => parseFloat(m.change) > 0) ? 'red' : 'green'}>
+            {molds.filter(m => WATCHLIST.includes(m.id)).filter(m => parseFloat(m.change) > 0).length} RISE / {molds.filter(m => WATCHLIST.includes(m.id)).filter(m => parseFloat(m.change) <= 0).length} FALL
           </p>
         </div>
       </div>
     )}
 
     {/* 2. 条件渲染内容 */}
-    {watchlist.length === 0 ? (
-      <div className="empty-watchlist">
+    {WATCHLIST.length === 0 ? (
+      <div className="empty-WATCHLIST">
         <div className="empty-art">
           <div className="void-circle"></div>
           <div className="root-line"></div>
         </div>
         <h3>You haven't anchored any assets in the market</h3>
-        <button className="go-market-btn" onClick={() => setActiveTab('Quotes')}>
-          Go to synchronize market quotes
+        <button className="go-market-btn" onClick={() => setActiveTab('QUOTES')}>
+          Go to synchronize market QUOTES
         </button>
       </div>
     ) : (
@@ -257,7 +257,7 @@ function App() {
             </tr>
           </thead>
           <tbody>
-            {molds.filter(m => watchlist.includes(m.id)).map(m => (
+            {molds.filter(m => WATCHLIST.includes(m.id)).map(m => (
               <tr key={m.id}>
                 <td>
                   <div className="name-box">
@@ -277,7 +277,7 @@ function App() {
                     onClick={() => handleBuy(m.id)}
                     disabled={ownedMolds.includes(m.id)}
                   >
-                    {ownedMolds.includes(m.id) ? 'EMBEDED' : 'PURCHASE'}
+                    {ownedMolds.includes(m.id) ? 'EMBEDED' : 'BUY'}
                   </button>
                 </td>
               </tr>
@@ -289,7 +289,7 @@ function App() {
   </div>
 )}
 
-       {activeTab === 'Home' && (
+       {activeTab === 'HOME' && (
   (() => {
     const n = ownedMolds.length;
     const integrity = (100 * Math.pow(0.5, n)).toFixed(n > 5 ? 4 : 2);
